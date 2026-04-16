@@ -1,0 +1,23 @@
+# Reference documents not part of the pipeline
+nihms-2090150.pdf
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Conda environment files
+*.egg-info/
+
+# Large result files that should not be in version control
+results/**/*.png
+results/**/*.pdf
+results/**/*.csv
+
+# OS files
+.DS_Store
+Thumbs.db

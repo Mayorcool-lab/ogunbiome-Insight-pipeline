@@ -1,0 +1,41 @@
+name: ogunbiome
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  # Python version
+  - python=3.11
+
+  # Core data manipulation
+  - pandas>=2.0
+  - numpy>=1.26
+
+  # Diversity analysis
+  - scikit-bio>=0.6
+  - scipy>=1.11
+
+  # Visualisation
+  - matplotlib>=3.7
+  - seaborn>=0.12
+
+  # Report generation
+  - reportlab>=4.0
+
+  # Pipeline management
+  - snakemake-minimal>=7.0
+
+  # Data reading
+  - openpyxl>=3.1
+
+  # Notebook fallback
+  - jupyter
+
+  # Utilities
+  - pyyaml>=6.0
+  - pip
+
+  - pip:
+    # Differential abundance - pure Python DESeq2
+    - pydeseq2==0.4.12
