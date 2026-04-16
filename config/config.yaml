@@ -1,0 +1,59 @@
+# OgunBiome MVP Pipeline — Central Configuration
+# Dataset: Baxter et al. 2019 — mBio — SRP128128
+# Inulin intervention: 174 healthy adults, 2-week chicory-derived inulin supplementation
+
+# Input data
+data:
+  input_file: "data/baxter2019_inulin_intervention.xlsx"
+  sheet_name: "Inulin"
+  efsa_database: "resources/efsa_biomarker_database.csv"
+
+# Column names as they appear in the dataset
+columns:
+  classification: "Classification"
+  abund_before: "% Abund. Before"
+  abund_during: "% Abund During"
+  fold_change: "Fold Change"
+  pvalue: "p-value"
+  adjusted_pvalue: "Adjusted p-value"
+
+# Statistical thresholds
+thresholds:
+  fdr: 0.05
+  fold_change_min: 1.5
+
+# Species to highlight in visualisations
+highlight_taxa:
+  - "Bifidobacterium"
+  - "Anaerostipes"
+  - "Faecalibacterium"
+  - "Akkermansia"
+
+# Report branding
+report:
+  title: "OgunBiome Inulin Intervention Insight Report"
+  subtitle: "Analysis of Baxter et al. 2019 — Inulin Arm — SRP128128"
+  author: "Dr. Oluwamayowa Ogun"
+  affiliation: "CAU Kiel"
+  date: "April 2026"
+  footer: "Produced by OgunBiome Insights — Dr. Oluwamayowa Ogun — CAU Kiel — April 2026 — Demonstration analysis on public dataset."
+  colors:
+    green: "#1A6B3C"
+    gold: "#C47F0A"
+
+# Output paths
+output:
+  quality_check:
+    summary: "results/quality_check/data_summary.csv"
+    report: "results/quality_check/quality_report.txt"
+  diversity:
+    abundance_chart: "results/diversity/abundance_chart.png"
+    top_taxa_plot: "results/diversity/top_taxa_plot.png"
+  differential:
+    significant: "results/differential_abundance/significant_results.csv"
+    all_results: "results/differential_abundance/all_results.csv"
+    volcano: "results/differential_abundance/volcano_plot.png"
+  efsa:
+    mapped: "results/efsa_mapping/efsa_mapped_results.csv"
+  report:
+    pdf: "results/report/OgunBiome_Inulin_Insight_Report.pdf"
