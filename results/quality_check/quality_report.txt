@@ -1,0 +1,14 @@
+OgunBiome MVP Pipeline — Quality Check Report
+==================================================
+
+Dataset: Baxter et al. 2019 — Inulin Arm
+Total taxa analysed: 30
+Significant taxa (FDR < 0.05): 5
+
+Significant Taxa:
+------------------------------
+Anaerostipes — FC: 2.12 — adj.p: 0.0001
+Bifidobacterium — FC: 2.62 — adj.p: 0.0022
+Anaerostipes — FC: 2.21 — adj.p: 0.0055
+Bifidobacterium — FC: 2.98 — adj.p: 0.0168
+Bifidobacterium — FC: 5.05 — adj.p: 0.0340
