@@ -1,0 +1,6 @@
+genus,efsa_opinion,opinion_id,relevance_tier,biomarker,claim_context,notes
+Bifidobacterium,Inulin-type fructans and bowel function,EFSA-Q-2013-00341,HIGH,Increased Bifidobacterium abundance,Gut health — prebiotic activity,Bifidobacterium directly cited as indicator of prebiotic activity following inulin-type fructan consumption in humans
+Bifidobacterium,Dietary fibre and gut health,EFSA-Q-2011-00364,HIGH,Bifidobacterium enrichment,Digestive health — microbiota modulation,EFSA recognises Bifidobacterium as a gut health biomarker in dietary fibre interventions
+Anaerostipes,Dietary fibre and colonic fermentation,EFSA-Q-2010-00945,MODERATE,Butyrate production,Colonic health — short-chain fatty acid production,Anaerostipes enrichment supports butyrate synthesis via cross-feeding; EFSA recognises butyrate as colonic health biomarker
+Faecalibacterium,Dietary fibre and gut microbiota,EFSA-Q-2011-00364,SUPPORTING,Butyrate production,Gut barrier integrity,Faecalibacterium prausnitzii is a major butyrate producer; trend toward increase observed but not statistically significant
+Akkermansia,Gut barrier integrity and metabolic health,EFSA-Q-2014-00579,SUPPORTING,Mucin layer maintenance,Gut barrier function,Akkermansia muciniphila associated with gut barrier integrity; modest non-significant trend observed
