@@ -57,3 +57,104 @@ output:
     mapped: "results/efsa_mapping/efsa_mapped_results.csv"
   report:
     pdf: "results/report/OgunBiome_Inulin_Insight_Report.pdf"
+
+# ============================================================
+# Raw Data Extension — Steps 0a and 0b
+# Added: June 2026 — Pipeline extension from pre-processed
+# summary table to raw FASTQ processing via DADA2/QIIME2
+# Biological justification: ASV-level resolution required for
+# strain-level tracking in clinical LBP development context
+# ============================================================
+
+raw_data:
+
+  # The 10 selected SRA run accessions
+  # Selection criteria: inulin arm, wint17 semester, paired
+  # before/during timepoints, complete SCFA measurements
+  # 5 participants x 2 timepoints = 10 sequencing runs
+  sra_accessions:
+    - "SRR6443837"   # U338 — before — wint17
+    - "SRR6443965"   # U338 — during — wint17
+    - "SRR6443940"   # U328 — before — wint17
+    - "SRR6443840"   # U328 — during — wint17
+    - "SRR6443863"   # U331 — before — wint17
+    - "SRR6443902"   # U331 — during — wint17
+    - "SRR6443869"   # U317 — before — wint17
+    - "SRR6443945"   # U317 — during — wint17
+    - "SRR6443914"   # U336 — before — wint17
+    - "SRR6443899"   # U336 — during — wint17
+
+  # Participant metadata for traceability
+  participants:
+    U338:
+      before: "SRR6443837"
+      during: "SRR6443965"
+      butyrate_before: 4.51
+      butyrate_during: 10.94
+    U328:
+      before: "SRR6443940"
+      during: "SRR6443840"
+      butyrate_before: 5.86
+      butyrate_during: 14.39
+    U331:
+      before: "SRR6443863"
+      during: "SRR6443902"
+      butyrate_before: 5.96
+      butyrate_during: 19.75
+    U317:
+      before: "SRR6443869"
+      during: "SRR6443945"
+      butyrate_before: 3.68
+      butyrate_during: 24.98
+    U336:
+      before: "SRR6443914"
+      during: "SRR6443899"
+      butyrate_before: 10.93
+      butyrate_during: 10.19
+
+  # Sequencing technology
+  # Confirmed from SRA metadata: LibraryLayout = PAIRED
+  # AvgSpotLen 500-501 = paired-end 2x250bp
+  sequencing:
+    layout: "paired"
+    platform: "Illumina MiSeq"
+    target_region: "V4"
+    avg_read_length: 250
+
+  # 16S V4 primers used by Baxter et al. 2019
+  # 515F and 806R — Earth Microbiome Project standard primers
+  # IUPAC degenerate bases: Y=C/T, M=A/C, N=any
+  primers:
+    forward: "GTGYCAGCMGCCGCGGTAA"    # 515F
+    reverse: "GGACTACNVGGGTWTCTAAT"   # 806R
+
+  # DADA2 denoising parameters
+  # trunc_len: set conservatively at 230 pending FastQC review
+  # Will be updated after examining per-base quality plots
+  # max_ee: maximum expected errors per read (standard = 2.0)
+  # trunc_q: truncate at bases below this quality score
+  dada2:
+    trunc_len_f: 230     # forward read truncation — update after FastQC
+    trunc_len_r: 230     # reverse read truncation — update after FastQC
+    max_ee_f: 2.0        # maximum expected errors — forward
+    max_ee_r: 2.0        # maximum expected errors — reverse
+    trunc_q: 2           # truncate at quality below this value
+    n_threads: 4         # parallel threads for denoising
+
+  # Taxonomy assignment
+  # SILVA 138 — current standard for 16S taxonomy
+  # V4-specific pre-trained naive Bayes classifier
+  # confidence 0.7 = minimum classification confidence threshold
+  taxonomy:
+    classifier: "silva-138-99-515-806-nb-classifier.qza"
+    confidence: 0.7
+    database: "SILVA 138"
+
+  # Output directory structure for raw data processing
+  output:
+    raw_fastq: "data/raw/"
+    fastqc: "results/fastqc/"
+    multiqc: "results/multiqc/"
+    qiime2_artifacts: "results/qiime2/"
+    qiime2_exported: "results/qiime2/exported/"
+    manifest: "data/manifest.tsv"
