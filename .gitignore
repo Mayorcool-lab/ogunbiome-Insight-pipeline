@@ -16,6 +16,15 @@ __pycache__/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Pipeline outputs — regeneratable from source
 results/report/*.pdf
+
+# Snakemake internal cache — machine-specific, not source code
 .snakemake/
-.snakemake/
+
+# Raw sequencing data — excluded from version control
+# Binary FASTQ files belong in dedicated data storage, not git
+# Accessions documented in config/config.yaml raw_data.sra_accessions
+# To reproduce: fasterq-dump <accession> --outdir data/raw/
+data/raw/
