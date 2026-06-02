@@ -129,13 +129,13 @@ raw_data:
     reverse: "GGACTACNVGGGTWTCTAAT"   # 806R
 
   # DADA2 denoising parameters
-  # trunc_len: set conservatively at 230 pending FastQC review
+  # trunc_len: set from FastQC quality review — fwd Q30 to ~230bp, rev Q30 to ~200bp
   # Will be updated after examining per-base quality plots
   # max_ee: maximum expected errors per read (standard = 2.0)
   # trunc_q: truncate at bases below this quality score
   dada2:
-    trunc_len_f: 230     # forward read truncation — update after FastQC
-    trunc_len_r: 230     # reverse read truncation — update after FastQC
+    trunc_len_f: 230     # forward read truncation — confirmed from FastQC Q30 profile
+    trunc_len_r: 200     # reverse read truncation — set from FastQC, rev reads drop Q30 at ~200bp
     max_ee_f: 2.0        # maximum expected errors — forward
     max_ee_r: 2.0        # maximum expected errors — reverse
     trunc_q: 2           # truncate at quality below this value
