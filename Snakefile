@@ -10,6 +10,11 @@ configfile: "config/config.yaml"
 
 rule all:
     input:
+        # Step 0a outputs
+        "results/multiqc/ogunbiome_multiqc_report.html",
+        # Step 0b outputs
+        "results/qiime2/exported/feature-table.tsv",
+        "results/qiime2/exported/taxonomy.tsv",
         # Step 1 outputs
         "results/quality_check/data_summary.csv",
         "results/quality_check/quality_report.txt",
@@ -88,3 +93,32 @@ rule generate_report:
         "Step 6 — Generating OgunBiome PDF report"
     shell:
         "python workflow/scripts/05_report_generator.py"
+
+# ============================================================
+# Step 0a — Raw Data Download and Quality Assessment
+# ============================================================
+rule download_and_qc:
+    output:
+        multiqc = "results/multiqc/ogunbiome_multiqc_report.html"
+    message:
+        "Step 0a — Downloading raw FASTQ files and running FastQC/MultiQC"
+    shell:
+        "bash workflow/scripts/00a_download_qc.sh"
+
+# ============================================================
+# Step 0b — DADA2 Amplicon Processing via QIIME2
+# ============================================================
+rule dada2_processing:
+    input:
+        multiqc = "results/multiqc/ogunbiome_multiqc_report.html",
+        manifest = "data/manifest.tsv",
+        classifier = "results/qiime2/silva-138-classifier.qza"
+    output:
+        table    = "results/qiime2/exported/feature-table.tsv",
+        taxonomy = "results/qiime2/exported/taxonomy.tsv"
+    message:
+        "Step 0b — DADA2 denoising and taxonomy assignment via QIIME2"
+    conda:
+        "envs/qiime2.yaml"
+    shell:
+        "bash workflow/scripts/00b_dada2_pipeline.sh"

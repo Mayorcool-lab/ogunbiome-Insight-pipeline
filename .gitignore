@@ -28,3 +28,5 @@ results/report/*.pdf
 # Accessions documented in config/config.yaml raw_data.sra_accessions
 # To reproduce: fasterq-dump <accession> --outdir data/raw/
 data/raw/
+results/qiime2/*.qza
+results/qiime2/silva-138-classifier.qza
