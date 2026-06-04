@@ -16,7 +16,7 @@ Built in Python and Bash, orchestrated with Snakemake, the pipeline follows the 
 
 **Baxter NT et al. (2019).** Dynamics of Human Gut Microbiota and Short-Chain Fatty Acids in Response to Dietary Interventions with Three Fermentable Fibers. *mBio* 10:e02566-18. NCBI SRA: SRP128128.
 
-Study design: Randomised controlled trial. 174 healthy adults. Four dietary intervention arms including chicory-derived inulin supplementation. Two-week intervention period. Paired-end 16S rRNA amplicon sequencing (V4 region, 515F/806R primers, Illumina MiSeq 2x250bp) of stool samples collected before and during intervention.
+Study design: Randomised controlled trial. 174 healthy adults. Four dietary intervention arms - chicory-derived inulin, resistant potato starch (RPS), resistant maize starch (RMS), and accessible starch control. Two-week intervention period. Paired-end 16S rRNA amplicon sequencing (V4 region, 515F/806R primers, Illumina MiSeq 2x250bp) of stool samples collected before and during intervention.
 
 Pipeline focus: Inulin arm. 10 samples selected - 5 participants (U338, U328, U331, U317, U336), paired before and during timepoints, wint17 semester, complete SCFA measurements available.
 
