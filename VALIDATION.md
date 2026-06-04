@@ -16,10 +16,10 @@ Interventions with Three Fermentable Fibers. *mBio* 10:e02566-18.
 **NCBI SRA Accession:** SRP128128
 
 **Study design:** Randomised controlled trial. 174 healthy adults.
-Four intervention arms - chicory-derived inulin, potato resistant
-starch, maize resistant starch, and accessible corn starch control.
-Two-week dietary supplementation. 16S rRNA amplicon sequencing of
-stool samples before and during intervention.
+Four intervention arms - chicory-derived inulin, resistant potato
+starch (RPS), resistant maize starch (RMS), and accessible starch
+control. Two-week dietary supplementation. 16S rRNA amplicon
+sequencing of stool samples before and during intervention.
 
 **Pipeline focus:** Inulin arm exclusively.
 
@@ -29,10 +29,11 @@ stool samples before and during intervention.
 
 ### Published Findings
 
-Baxter et al. 2019 reported that chicory-derived inulin
-supplementation significantly altered gut microbiota composition,
-with Bifidobacterium and Anaerostipes identified as the primary
-enriched taxa in the inulin arm.
+Baxter et al. 2019 reported that inulin supplementation significantly
+increased the relative abundance of four distinct Bifidobacterium
+species sequences and sequences classified as Anaerostipes hadrus.
+No significant changes were observed in the accessible starch control
+arm.
 
 ### Pipeline Results
 
@@ -52,11 +53,11 @@ et al. 2019.
 
 The biological coherence of this finding is confirmed by the
 established prebiotic mechanism. Bifidobacterium species possess
-beta-fructosidase enzymes that selectively ferment inulin.
-Anaerostipes cross-feeds on acetate produced by Bifidobacterium,
-producing butyrate via the acetate-CoA transferase pathway -
-consistent with the inulin-Bifidobacterium-acetate-Anaerostipes-
-butyrate cross-feeding cascade.
+beta-fructosidase enzymes that selectively ferment inulin, producing
+acetate. Anaerostipes hadrus cross-feeds on this acetate via the
+acetate-CoA transferase pathway, producing butyrate - consistent
+with the inulin-Bifidobacterium-acetate-Anaerostipes-butyrate
+cross-feeding cascade.
 
 ### Limitation
 
@@ -65,6 +66,12 @@ This validation used a pre-processed summary table from Baxter et al.
 using mothur OTU clustering. The pipeline applied genus-level
 aggregation, visualisation, biological interpretation, and regulatory
 biomarker mapping to these pre-processed results.
+
+Note on species resolution: 16S V4 amplicon sequencing provides
+reliable genus-level taxonomy. Species-level assignments from V4
+data are tentative and reference database-dependent. The genus-level
+findings reported here represent the honest resolution of this
+sequencing approach.
 
 ---
 
@@ -153,10 +160,9 @@ confirmed at ASV resolution from raw FASTQ files.
 
 U328 is an outlier - Bifidobacterium decreased while Anaerostipes
 still increased slightly, suggesting an alternative fermentation
-route. This inter-individual variation is consistent with the
-response heterogeneity reported in prebiotic intervention studies
-and directly analogous to the responder/non-responder heterogeneity
-mbiomics addresses in the MBX-116 clinical programme.
+route. This inter-individual variation in prebiotic response is
+consistent with the heterogeneity reported across prebiotic
+intervention studies in the published literature.
 
 ---
 
