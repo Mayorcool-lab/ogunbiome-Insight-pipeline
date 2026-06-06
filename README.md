@@ -50,6 +50,32 @@ Structured mapping of significant taxa against EFSA scientific opinions. Relevan
 **Step 6 - Report Generation**
 Automated PDF assembly of all pipeline outputs using ReportLab. Output: OgunBiome_Inulin_Insight_Report.pdf
 
+## Pipeline Architecture Note
+
+The pipeline currently operates as two analytical streams:
+
+**Stream 1 - Original Analysis (Steps 1-6)**
+Steps 1-6 use the pre-processed Baxter et al. summary table -
+fold changes and p-values computed by the original authors using
+mothur OTU clustering (174 participants). This stream produces
+the automated PDF report with EFSA regulatory mapping.
+
+**Stream 2 - DADA2 Reanalysis (Steps 0a-0b)**
+Steps 0a-0b process raw paired-end FASTQ files from NCBI SRA
+through DADA2 denoising via QIIME2, producing an ASV count table
+and SILVA 138 taxonomy assignments. Biological findings are
+validated independently in notebooks/06_dada2_reanalysis.ipynb
+(5 participants, wint17 semester).
+
+Both streams confirm the same biological conclusion - Bifidobacterium
+and Anaerostipes enrich during inulin supplementation. The DADA2
+reanalysis provides independent validation at higher resolution
+from raw sequencing data.
+
+**Next development step:** Formally connecting the DADA2 ASV output
+as input to Step 1, replacing the pre-processed table with ASV-level
+data throughout the downstream pipeline.
+
 ---
 
 ## Key Findings
