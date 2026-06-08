@@ -35,6 +35,20 @@ species sequences and sequences classified as Anaerostipes hadrus.
 No significant changes were observed in the accessible starch control
 arm.
 
+### Original Study Methods
+
+16S rRNA sequencing: V4 region, paired-end 2x250bp, Illumina MiSeq.
+Sequences processed using mothur - paired reads merged, aligned to
+SILVA bacterial SSU reference, chimeras removed, classified using
+Ribosomal Database Project. Sequences rarefied to 3,000 per sample.
+
+Differential abundance: one-tailed paired Wilcoxon tests with
+Benjamini-Hochberg correction in R (version 3.2.4).
+
+SCFA quantification: HPLC (Shimadzu system, Aminex HPX-87H column,
+mobile phase 0.01 N H2SO4, UV detection). Concentrations normalised
+to wet weight of fecal material.
+
 ### Pipeline Results
 
 Significant genera identified at FDR < 0.05 and fold change >= 1.5:
@@ -63,9 +77,10 @@ cross-feeding cascade.
 
 This validation used a pre-processed summary table from Baxter et al.
 2019 - fold changes and p-values computed by the original authors
-using mothur OTU clustering. The pipeline applied genus-level
-aggregation, visualisation, biological interpretation, and regulatory
-biomarker mapping to these pre-processed results.
+using mothur OTU clustering and paired Wilcoxon tests. The pipeline
+applied genus-level aggregation, visualisation, biological
+interpretation, and regulatory biomarker mapping to these
+pre-processed results.
 
 Note on species resolution: 16S V4 amplicon sequencing provides
 reliable genus-level taxonomy. Species-level assignments from V4
@@ -85,8 +100,21 @@ via fasterq-dump and processed through a complete QIIME2 2024.10
 amplicon pipeline.
 
 **Participants selected:** U338, U328, U331, U317, U336
+
 **Selection criteria:** Paired before/during timepoints, wint17
-semester, complete SCFA measurements available.
+semester, complete SCFA measurements available - allowing direct
+correlation between microbiome composition changes and metabolic
+output in the same individual.
+
+**Participant SCFA measurements (HPLC, Baxter et al. 2019):**
+
+| Participant | Before SRR | During SRR | Butyrate Before | Butyrate During | Response |
+|-------------|------------|------------|-----------------|-----------------|----------|
+| U317 | SRR6443869 | SRR6443945 | 3.68 mmol/kg | 24.98 mmol/kg | Strong responder (6.8x) |
+| U328 | SRR6443940 | SRR6443840 | 5.86 mmol/kg | 14.39 mmol/kg | Moderate responder |
+| U331 | SRR6443863 | SRR6443902 | 5.96 mmol/kg | 19.75 mmol/kg | Strong responder |
+| U336 | SRR6443914 | SRR6443899 | 10.93 mmol/kg | 10.19 mmol/kg | Non-responder |
+| U338 | SRR6443837 | SRR6443965 | 4.51 mmol/kg | 10.94 mmol/kg | Moderate responder |
 
 **Pipeline steps:**
 1. FastQC quality assessment - trunc_len_f=230, trunc_len_r=200
@@ -121,7 +149,9 @@ Minimum threshold: 60% retention. All samples above threshold.
 
 ASV count table joined with SILVA 138 taxonomy, aggregated to genus
 level, and relative abundance computed to normalise for unequal
-sequencing depth across samples.
+sequencing depth across samples. No rarefaction applied - relative
+abundance normalisation used in place of the 3,000-sequence
+rarefaction applied by Baxter et al.
 
 Per-participant fold changes (relative abundance during / before):
 
@@ -142,10 +172,11 @@ Per-participant fold changes (relative abundance during / before):
 | Aspect | Section 1 | Section 2 |
 |--------|-----------|-----------|
 | Input | Pre-processed Excel table | Raw FASTQ files |
-| Method | Baxter et al. mothur OTUs | DADA2 ASVs |
-| Resolution | OTU (97% similarity) | ASV (exact sequence) |
+| Sequencing processing | mothur, SILVA SSU, RDP classifier | DADA2, SILVA 138, sklearn naive Bayes |
+| Clustering method | OTU (97% similarity) | ASV (exact sequence) |
+| Differential abundance | Paired Wilcoxon test, BH correction | Relative abundance fold change |
+| Normalisation | Rarefaction to 3,000 reads | Relative abundance |
 | Sample size | 174 participants | 5 participants |
-| Normalisation | Pre-computed by authors | Relative abundance |
 
 ### Validation Statement
 
@@ -163,6 +194,13 @@ still increased slightly, suggesting an alternative fermentation
 route. This inter-individual variation in prebiotic response is
 consistent with the heterogeneity reported across prebiotic
 intervention studies in the published literature.
+
+The variation in butyrate response across participants - from 6.8x
+increase in U317 to no change in U336 - demonstrates that
+compositional microbiome changes do not always translate to equivalent
+functional metabolic outputs. This responder/non-responder
+heterogeneity is a key analytical question in microbiome therapeutic
+development.
 
 ---
 
