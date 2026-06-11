@@ -28,5 +28,11 @@ results/report/*.pdf
 # Accessions documented in config/config.yaml raw_data.sra_accessions
 # To reproduce: fasterq-dump <accession> --outdir data/raw/
 data/raw/
+
+# QIIME2 artifacts — large binary files, regeneratable
 results/qiime2/*.qza
 results/qiime2/silva-138-classifier.qza
+
+# FastQC and MultiQC reports — regeneratable from raw data
+results/fastqc/
+results/multiqc/
