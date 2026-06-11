@@ -1,6 +1,7 @@
 # OgunBiome MVP Pipeline — Central Configuration
 # Dataset: Baxter et al. 2019 — mBio — SRP128128
 # Inulin intervention: 174 healthy adults, 2-week chicory-derived inulin supplementation
+# Extended: June 2026 — Full wint17 cohort expansion (27 participants)
 
 # Input data
 data:
@@ -64,15 +65,24 @@ output:
 # summary table to raw FASTQ processing via DADA2/QIIME2
 # Biological justification: ASV-level resolution required for
 # strain-level tracking in clinical LBP development context
+#
+# June 2026 Expansion: 5 participants -> 27 participants
+# Complete wint17 inulin cohort with paired timepoints
+# and complete SCFA measurements. Same semester = no batch
+# correction required.
 # ============================================================
 
 raw_data:
 
-  # The 10 selected SRA run accessions
-  # Selection criteria: inulin arm, wint17 semester, paired
-  # before/during timepoints, complete SCFA measurements
-  # 5 participants x 2 timepoints = 10 sequencing runs
+  # All 54 SRA run accessions — complete wint17 inulin cohort
+  # Selection criteria:
+  #   - inulin arm, wint17 semester only (avoids batch effects)
+  #   - paired before/during timepoints per participant
+  #   - complete butyrate SCFA measurements (no NA)
+  # 27 participants x 2 timepoints = 54 sequencing runs
+  # 54 runs x 2 files (forward + reverse) = 108 FASTQ files
   sra_accessions:
+    # Original 5 participants
     - "SRR6443837"   # U338 — before — wint17
     - "SRR6443965"   # U338 — during — wint17
     - "SRR6443940"   # U328 — before — wint17
@@ -83,34 +93,222 @@ raw_data:
     - "SRR6443945"   # U317 — during — wint17
     - "SRR6443914"   # U336 — before — wint17
     - "SRR6443899"   # U336 — during — wint17
+    # Expansion — 22 additional participants — wint17 inulin arm
+    - "SRR6443906"   # U307 — before — wint17
+    - "SRR6444226"   # U307 — during — wint17
+    - "SRR6443886"   # U310 — before — wint17
+    - "SRR6444100"   # U310 — during — wint17
+    - "SRR6444286"   # U311 — before — wint17
+    - "SRR6444014"   # U311 — during — wint17
+    - "SRR6443986"   # U312 — before — wint17
+    - "SRR6444459"   # U312 — during — wint17
+    - "SRR6444146"   # U313 — before — wint17
+    - "SRR6444476"   # U313 — during — wint17
+    - "SRR6443926"   # U315 — before — wint17
+    - "SRR6444544"   # U315 — during — wint17
+    - "SRR6444270"   # U316 — before — wint17
+    - "SRR6444104"   # U316 — during — wint17
+    - "SRR6444171"   # U318 — before — wint17
+    - "SRR6444152"   # U318 — during — wint17
+    - "SRR6444614"   # U322 — before — wint17
+    - "SRR6444156"   # U322 — during — wint17
+    - "SRR6444112"   # U323 — before — wint17
+    - "SRR6444597"   # U323 — during — wint17
+    - "SRR6444071"   # U325 — before — wint17
+    - "SRR6444037"   # U325 — during — wint17
+    - "SRR6443872"   # U326 — before — wint17
+    - "SRR6444273"   # U326 — during — wint17
+    - "SRR6443935"   # U327 — before — wint17
+    - "SRR6444682"   # U327 — during — wint17
+    - "SRR6443996"   # U329 — before — wint17
+    - "SRR6444193"   # U329 — during — wint17
+    - "SRR6444021"   # U332 — before — wint17
+    - "SRR6443961"   # U332 — during — wint17
+    - "SRR6444626"   # U333 — before — wint17
+    - "SRR6443879"   # U333 — during — wint17
+    - "SRR6443919"   # U334 — before — wint17
+    - "SRR6444295"   # U334 — during — wint17
+    - "SRR6443852"   # U335 — before — wint17
+    - "SRR6444254"   # U335 — during — wint17
+    - "SRR6443982"   # U339 — before — wint17
+    - "SRR6443845"   # U339 — during — wint17
+    - "SRR6443963"   # U341 — before — wint17
+    - "SRR6444592"   # U341 — during — wint17
+    - "SRR6443990"   # U343 — before — wint17
+    - "SRR6444407"   # U343 — during — wint17
+    - "SRR6444033"   # U344 — before — wint17
+    - "SRR6443951"   # U344 — during — wint17
 
   # Participant metadata for traceability
+  # Butyrate values from HPLC measurements (Baxter et al. 2019)
+  # Response classification based on butyrate change:
+  #   Strong responder: >10 mmol/kg increase
+  #   Moderate responder: 3-10 mmol/kg increase
+  #   Non-responder: <3 mmol/kg change
+  #   Decreaser: butyrate decreased during supplementation
   participants:
-    U338:
-      before: "SRR6443837"
-      during: "SRR6443965"
-      butyrate_before: 4.51
-      butyrate_during: 10.94
-    U328:
-      before: "SRR6443940"
-      during: "SRR6443840"
-      butyrate_before: 5.86
-      butyrate_during: 14.39
-    U331:
-      before: "SRR6443863"
-      during: "SRR6443902"
-      butyrate_before: 5.96
-      butyrate_during: 19.75
     U317:
       before: "SRR6443869"
       during: "SRR6443945"
       butyrate_before: 3.68
       butyrate_during: 24.98
+      response: "strong_responder"
+    U328:
+      before: "SRR6443940"
+      during: "SRR6443840"
+      butyrate_before: 5.86
+      butyrate_during: 14.39
+      response: "moderate_responder"
+    U331:
+      before: "SRR6443863"
+      during: "SRR6443902"
+      butyrate_before: 5.96
+      butyrate_during: 19.75
+      response: "strong_responder"
     U336:
       before: "SRR6443914"
       during: "SRR6443899"
       butyrate_before: 10.93
       butyrate_during: 10.19
+      response: "non_responder"
+    U338:
+      before: "SRR6443837"
+      during: "SRR6443965"
+      butyrate_before: 4.51
+      butyrate_during: 10.94
+      response: "moderate_responder"
+    U307:
+      before: "SRR6443906"
+      during: "SRR6444226"
+      butyrate_before: 5.93
+      butyrate_during: 14.80
+      response: "moderate_responder"
+    U310:
+      before: "SRR6443886"
+      during: "SRR6444100"
+      butyrate_before: 15.83
+      butyrate_during: 12.34
+      response: "non_responder"
+    U311:
+      before: "SRR6444286"
+      during: "SRR6444014"
+      butyrate_before: 10.96
+      butyrate_during: 15.68
+      response: "moderate_responder"
+    U312:
+      before: "SRR6443986"
+      during: "SRR6444459"
+      butyrate_before: 11.68
+      butyrate_during: 10.38
+      response: "non_responder"
+    U313:
+      before: "SRR6444146"
+      during: "SRR6444476"
+      butyrate_before: 11.31
+      butyrate_during: 13.08
+      response: "moderate_responder"
+    U315:
+      before: "SRR6443926"
+      during: "SRR6444544"
+      butyrate_before: 12.06
+      butyrate_during: 33.05
+      response: "strong_responder"
+    U316:
+      before: "SRR6444270"
+      during: "SRR6444104"
+      butyrate_before: 22.74
+      butyrate_during: 30.47
+      response: "moderate_responder"
+    U318:
+      before: "SRR6444171"
+      during: "SRR6444152"
+      butyrate_before: 25.92
+      butyrate_during: 26.67
+      response: "non_responder"
+    U322:
+      before: "SRR6444614"
+      during: "SRR6444156"
+      butyrate_before: 5.15
+      butyrate_during: 8.22
+      response: "moderate_responder"
+    U323:
+      before: "SRR6444112"
+      during: "SRR6444597"
+      butyrate_before: 12.30
+      butyrate_during: 10.97
+      response: "non_responder"
+    U325:
+      before: "SRR6444071"
+      during: "SRR6444037"
+      butyrate_before: 20.17
+      butyrate_during: 27.76
+      response: "moderate_responder"
+    U326:
+      before: "SRR6443872"
+      during: "SRR6444273"
+      butyrate_before: 14.75
+      butyrate_during: 13.40
+      response: "non_responder"
+    U327:
+      before: "SRR6443935"
+      during: "SRR6444682"
+      butyrate_before: 7.09
+      butyrate_during: 13.77
+      response: "moderate_responder"
+    U329:
+      before: "SRR6443996"
+      during: "SRR6444193"
+      butyrate_before: 2.06
+      butyrate_during: 20.36
+      response: "strong_responder"
+    U332:
+      before: "SRR6444021"
+      during: "SRR6443961"
+      butyrate_before: 22.38
+      butyrate_during: 6.85
+      response: "decreaser"
+    U333:
+      before: "SRR6444626"
+      during: "SRR6443879"
+      butyrate_before: 43.66
+      butyrate_during: 15.45
+      response: "decreaser"
+    U334:
+      before: "SRR6443919"
+      during: "SRR6444295"
+      butyrate_before: 13.83
+      butyrate_during: 43.01
+      response: "strong_responder"
+    U335:
+      before: "SRR6443852"
+      during: "SRR6444254"
+      butyrate_before: 9.86
+      butyrate_during: 16.73
+      response: "moderate_responder"
+    U339:
+      before: "SRR6443982"
+      during: "SRR6443845"
+      butyrate_before: 7.59
+      butyrate_during: 5.61
+      response: "non_responder"
+    U341:
+      before: "SRR6443963"
+      during: "SRR6444592"
+      butyrate_before: 11.09
+      butyrate_during: 9.37
+      response: "non_responder"
+    U343:
+      before: "SRR6443990"
+      during: "SRR6444407"
+      butyrate_before: 13.00
+      butyrate_during: 9.64
+      response: "non_responder"
+    U344:
+      before: "SRR6444033"
+      during: "SRR6443951"
+      butyrate_before: 11.04
+      butyrate_during: 34.44
+      response: "strong_responder"
 
   # Sequencing technology
   # Confirmed from SRA metadata: LibraryLayout = PAIRED
@@ -129,28 +327,28 @@ raw_data:
     reverse: "GGACTACNVGGGTWTCTAAT"   # 806R
 
   # DADA2 denoising parameters
-  # trunc_len: set from FastQC quality review — fwd Q30 to ~230bp, rev Q30 to ~200bp
-  # Will be updated after examining per-base quality plots
-  # max_ee: maximum expected errors per read (standard = 2.0)
-  # trunc_q: truncate at bases below this quality score
+  # trunc_len: set from FastQC quality review
+  # Forward reads maintain Q30 to ~230bp
+  # Reverse reads drop Q30 at ~200bp
+  # Confirmed consistent across original 10 samples
   dada2:
-    trunc_len_f: 230     # forward read truncation — confirmed from FastQC Q30 profile
-    trunc_len_r: 200     # reverse read truncation — set from FastQC, rev reads drop Q30 at ~200bp
-    max_ee_f: 2.0        # maximum expected errors — forward
-    max_ee_r: 2.0        # maximum expected errors — reverse
-    trunc_q: 2           # truncate at quality below this value
-    n_threads: 4         # parallel threads for denoising
+    trunc_len_f: 230
+    trunc_len_r: 200
+    max_ee_f: 2.0
+    max_ee_r: 2.0
+    trunc_q: 2
+    n_threads: 4
 
   # Taxonomy assignment
-  # SILVA 138 — current standard for 16S taxonomy
-  # V4-specific pre-trained naive Bayes classifier
+  # SILVA 138 human stool weighted naive Bayes classifier
+  # sklearn 1.4.2 compatible — required for QIIME2 2024.10
   # confidence 0.7 = minimum classification confidence threshold
   taxonomy:
-    classifier: "silva-138-99-515-806-nb-classifier.qza"
+    classifier: "results/qiime2/silva-138-classifier.qza"
     confidence: 0.7
     database: "SILVA 138"
 
-  # Output directory structure for raw data processing
+  # Output directory structure
   output:
     raw_fastq: "data/raw/"
     fastqc: "results/fastqc/"
