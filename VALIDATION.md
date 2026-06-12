@@ -90,7 +90,7 @@ sequencing approach.
 
 ---
 
-## Section 2 - DADA2 Raw Data Reanalysis (June 2026)
+## Section 2 - DADA2 Reanalysis — Phase 1 Technical Benchmarking (June 2026)
 
 ### What Was Done
 
@@ -204,7 +204,7 @@ research.
 
 ---
 
-## Section 3 - Expanded DADA2 Reanalysis (June 2026)
+## Section 3 - DADA2 Reanalysis — Phase 2 Cohort Expansion (June 2026)
 
 ### What Was Done
 

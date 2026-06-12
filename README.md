@@ -60,7 +60,7 @@ fold changes and p-values computed by the original authors using
 mothur OTU clustering (174 participants). This stream produces
 the automated PDF report with EFSA regulatory mapping.
 
-**Stream 2 - DADA2 Reanalysis (Steps 0a-0b)**
+**Stream 2 - DADA2 Reanalysis — Phase 1 Benchmarking (5 participants) and Phase 2 Expansion (27 participants)**
 Steps 0a-0b process raw paired-end FASTQ files from NCBI SRA
 through DADA2 denoising via QIIME2, producing an ASV count table
 and SILVA 138 taxonomy assignments. Biological findings validated
@@ -93,7 +93,7 @@ Significant genera identified at FDR < 0.05 and fold change >= 1.5:
 
 Independent reanalysis from raw FASTQ files confirms the biological direction:
 
-| Genus | DADA2 median FC | Original OTU FC | Direction preserved |
+| Genus | DADA2 mean FC | Original OTU FC | Direction preserved |
 |-------|-----------------|-----------------|---------------------|
 | *Bifidobacterium* | 1.90x | 3.54x | Yes (4/5 participants) |
 | *Anaerostipes* | 1.95x | 2.16x | Yes (5/5 participants) |
