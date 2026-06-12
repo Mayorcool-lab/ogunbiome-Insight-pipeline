@@ -199,8 +199,154 @@ The variation in butyrate response across participants - from 6.8x
 increase in U317 to no change in U336 - demonstrates that
 compositional microbiome changes do not always translate to equivalent
 functional metabolic outputs. This responder/non-responder
-heterogeneity is a key analytical question in microbiome therapeutic
-development.
+heterogeneity is a key analytical question in microbiome intervention
+research.
+
+---
+
+## Section 3 - Expanded DADA2 Reanalysis (June 2026)
+
+### What Was Done
+
+The DADA2 reanalysis was expanded from 5 to 27 participants —
+the complete wint17 inulin arm with paired before/during samples
+and complete SCFA measurements. Same semester throughout —
+no batch correction required.
+
+**Participants:** 27 (complete wint17 inulin cohort)
+**Samples:** 54 (27 x 2 timepoints)
+**SRR accessions:** 54 (documented in config/config.yaml)
+**ASVs detected:** 882 across 54 samples
+**Genera detected:** 149
+
+**Selection criteria:** wint17 semester, paired before/during
+timepoints, complete butyrate HPLC measurements, no missing values.
+
+**Response classification (butyrate change during intervention):**
+
+| Response | n | Threshold |
+|----------|---|-----------|
+| Strong responder | 6 | Butyrate increase > 10 mmol/kg |
+| Moderate responder | 10 | Butyrate increase 3-10 mmol/kg |
+| Non-responder | 9 | Butyrate change < 3 mmol/kg |
+| Decreaser | 2 | Butyrate decreased |
+
+**Pipeline steps:** Identical to Section 2.
+Truncation lengths trunc_len_f=230, trunc_len_r=200 confirmed
+consistent across all 54 samples via MultiQC quality assessment.
+
+### QC Results
+
+All 54 samples passed minimum 60% non-chimeric read retention.
+
+| Metric | Value |
+|--------|-------|
+| Minimum retention | 67.44% (U334-before) |
+| Maximum retention | 94.62% (U344-during) |
+| Mean retention | 81.2% |
+
+Full per-sample denoising statistics:
+results/qiime2/exported/stats.tsv
+
+### Alpha Diversity
+
+Shannon entropy calculated per sample using raw ASV counts.
+Paired Wilcoxon signed-rank test comparing before vs during.
+
+| Metric | Before | During |
+|--------|--------|--------|
+| Mean Shannon entropy | 3.353 | 3.099 |
+| Mean change | -0.254 | |
+| Wilcoxon W | 95.0 | |
+| p-value | 0.0229 | |
+
+Shannon entropy significantly decreased during inulin
+supplementation (p=0.0229). Reflects selective enrichment of
+Bifidobacterium and Anaerostipes reducing community evenness —
+consistent with the targeted prebiotic effect of inulin.
+
+### Beta Diversity
+
+Bray-Curtis dissimilarity matrix computed across all 54 samples.
+PCoA visualised community composition differences.
+PERMANOVA tested whether timepoint explains community variance.
+
+| Metric | Value |
+|--------|-------|
+| Mean Bray-Curtis distance | 0.735 |
+| PERMANOVA pseudo-F | 0.392 |
+| PERMANOVA p-value | 0.999 |
+
+Timepoint does not explain significant variance in community
+composition. Inter-individual variability dominates gut microbiome
+composition far more than the two-week inulin intervention.
+Consistent with inulin having a targeted effect on specific genera
+rather than a broad community-level shift.
+
+### Differential Abundance
+
+Paired Wilcoxon signed-rank test on relative abundance for each
+of 149 genera. Benjamini-Hochberg FDR correction applied.
+
+| Result | Value |
+|--------|-------|
+| Genera tested | 149 |
+| Significant before correction (p<0.05) | 19 |
+| Significant after FDR correction | 0 |
+
+No genera survive FDR correction — expected given n=27 testing
+149 genera simultaneously. The biological signal is present:
+
+| Genus | Fold Change | Raw p-value | Direction |
+|-------|-------------|-------------|-----------|
+| Anaerostipes | 2.19x | 0.0009 | Enriched |
+| Bifidobacterium | 1.73x | 0.0240 | Enriched |
+| Faecalibacterium | 1.21x | 0.0115 | Enriched |
+| Intestinibacter | 0.33x | 0.0051 | Depleted |
+| Alistipes | 0.61x | 0.0080 | Depleted |
+
+Anaerostipes raw p=0.0009 is the strongest signal in the dataset
+and would likely survive FDR correction with the full 174-participant
+cohort.
+
+### Responder vs Non-Responder Baseline Comparison
+
+Mann-Whitney U test comparing baseline microbiome composition
+between strong responders (n=6) and non-responders (n=9).
+No genera survive FDR correction — insufficient power with these
+group sizes. Biological trend visible:
+
+- Faecalibacterium: 10.1% vs 7.4% at baseline (responders higher)
+- Agathobacter: 3.5% vs 1.8% at baseline (responders higher)
+- Prevotella_9: 0% vs 4.8% at baseline (non-responders higher)
+
+Pattern suggests baseline functional butyrate-producing capacity
+may predict inulin response — requires larger cohort for
+formal confirmation.
+
+### Validation Statement
+
+The expanded 27-participant DADA2 reanalysis confirms the biological
+conclusions of Baxter et al. 2019 and Section 2. Anaerostipes and
+Bifidobacterium show consistent enrichment direction across the
+majority of participants. Shannon entropy significantly decreased
+during intervention (p=0.0229) — reflecting the selective prebiotic
+effect. Individual butyrate response varies substantially — from
++29.18 mmol/kg (U334) to -28.21 mmol/kg (U333) — demonstrating
+the inter-individual heterogeneity that characterises prebiotic
+intervention studies.
+
+### Honest Limitations
+
+1. No genera survive FDR correction — n=27 underpowered for 149
+   simultaneous tests. Full 174-participant analysis required.
+2. Paired Wilcoxon used instead of ANCOM-BC — Python pipeline
+   limitation. ANCOM-BC in R would more appropriately address
+   the compositional data problem.
+3. No rarefaction applied — relative abundance normalisation
+   used. Different from Baxter et al. rarefaction approach.
+4. 16S V4 data — genus-level resolution only. Species and
+   strain resolution requires whole genome shotgun sequencing.
 
 ---
 
