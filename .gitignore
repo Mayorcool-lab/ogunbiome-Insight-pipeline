@@ -20,6 +20,28 @@ Thumbs.db
 # Pipeline outputs — regeneratable from source
 results/report/*.pdf
 
+# Reference documents
+nihms-2090150.pdf
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Conda
+*.egg-info/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Pipeline outputs — regeneratable from source
+results/report/*.pdf
+
 # Snakemake internal cache — machine-specific, not source code
 .snakemake/
 
@@ -36,3 +58,6 @@ results/qiime2/silva-138-classifier.qza
 # FastQC and MultiQC reports — regeneratable from raw data
 results/fastqc/
 results/multiqc/
+
+# PICRUSt2 intermediate files — large, regeneratable
+results/picrust2/intermediate/

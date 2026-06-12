@@ -2,6 +2,7 @@
 # Dataset: Baxter et al. 2019 — mBio — SRP128128
 # Inulin intervention: 174 healthy adults, 2-week chicory-derived inulin supplementation
 # Extended: June 2026 — Full wint17 cohort expansion (27 participants)
+# Phase 2: June 2026 — PICRUSt2 functional profiling, LEfSe, expanded diversity metrics
 
 # Input data
 data:
@@ -356,3 +357,51 @@ raw_data:
     qiime2_artifacts: "results/qiime2/"
     qiime2_exported: "results/qiime2/exported/"
     manifest: "data/manifest.tsv"
+
+# ============================================================
+# Phase 2 Expansion — June 2026
+# Additional analyses added for presentation preparation
+# PICRUSt2 functional profiling, LEfSe biomarker discovery,
+# expanded diversity metrics, responder prediction model
+# ============================================================
+
+picrust2:
+  # PICRUSt2 v2.5.2 — functional prediction from 16S ASVs
+  # Requires dedicated conda environment: picrust2-env
+  # Input: ASV table + representative sequences (FASTA)
+  # Output: predicted KEGG pathway abundances
+  nsti_threshold: 2.0        # exclude ASVs with NSTI > 2
+  processes: 4               # parallel processes
+  output_dir: "results/picrust2/"
+  intermediate_dir: "results/picrust2/intermediate/"
+
+# New diversity metrics — requires phylogenetic tree from PICRUSt2
+diversity:
+  rarefaction_depth: 9000    # set below minimum sample depth
+  faith_pd: true             # requires PICRUSt2 tree
+  weighted_unifrac: true     # requires PICRUSt2 tree
+  chao1: true
+
+# LEfSe parameters
+lefse:
+  lda_threshold: 2.5         # minimum LDA score for significance
+  pvalue_threshold: 0.05
+
+# Random Forest responder prediction
+random_forest:
+  n_estimators: 100
+  test_size: 0.3
+  random_state: 42
+  n_features_to_plot: 15     # top features for SHAP plot
+
+# New output paths
+output_expansion:
+  picrust2_pathways: "results/picrust2/pred_metagenome_unstrat.tsv"
+  picrust2_analysis: "results/picrust2/pathway_enrichment.png"
+  rarefaction_curve: "results/qiime2/exported/rarefaction_curve.png"
+  alpha_diversity_all: "results/qiime2/exported/alpha_diversity_all_metrics.png"
+  beta_diversity_unifrac: "results/qiime2/exported/beta_diversity_unifrac.png"
+  spearman_correlation: "results/qiime2/exported/spearman_correlation.png"
+  lefse_results: "results/qiime2/exported/lefse_results.png"
+  random_forest: "results/qiime2/exported/random_forest_prediction.png"
+  trajectory_plot: "results/qiime2/exported/butyrate_trajectory.png"
