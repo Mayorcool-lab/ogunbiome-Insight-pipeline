@@ -137,8 +137,6 @@ rule dada2_processing:
         stats    = "results/qiime2/exported/stats.tsv"
     message:
         "Step 0b — DADA2 denoising and taxonomy assignment via QIIME2"
-    conda:
-        "envs/qiime2.yaml"
     shell:
         "bash workflow/scripts/00b_dada2_pipeline.sh"
 
